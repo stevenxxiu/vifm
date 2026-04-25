@@ -92,10 +92,10 @@ local function combine_status(a, b)
     if a == b then
         return a
     end
-    if a == ' ' then
+    if a == ' ' or a == '!' then
         return b
     end
-    if b == ' ' then
+    if b == ' ' or b == '!' then
         return a
     end
     return 'X'
