@@ -133,8 +133,10 @@ local function set_file_status(node, path, status, expires)
         node.subs[entry] = next
     end
 
-    status = set_file_status(next, path, status, expires)
-    update_dir_status(node, status)
+    if path ~= '' then
+        status = set_file_status(next, path, status, expires)
+        update_dir_status(node, status)
+    end
 
     return node.status
 end
