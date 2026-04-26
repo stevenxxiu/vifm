@@ -143,9 +143,9 @@ local function set_file_status(node, path, status, expires)
 
     if path ~= '' then
         status = set_file_status(next, path, status, expires)
-        update_dir_status(node, status)
     end
 
+    update_dir_status(node, status)
     return node.status
 end
 
