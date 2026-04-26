@@ -25,6 +25,7 @@ cffi.cdef([[
 
     typedef struct git_object git_object;
     int git_revparse_single(git_object **out, git_repository *repo, const char *spec);
+    void git_object_free(git_object *object);
 
     typedef struct git_commit git_commit;
     typedef struct git_tree_entry git_tree_entry;
@@ -35,6 +36,7 @@ cffi.cdef([[
     } git_treewalk_mode;
     typedef int (*git_treewalk_cb)(const char *root, const git_tree_entry *entry, void *payload);
     int git_tree_walk(const git_tree *tree, git_treewalk_mode mode, git_treewalk_cb callback, void *payload);
+    void git_tree_free(git_tree *tree);
     const char * git_tree_entry_name(const git_tree_entry *entry);
     typedef int git_object_t;
     git_object_t git_tree_entry_type(const git_tree_entry *entry);
@@ -307,8 +309,8 @@ function update_unchanged(at, node, expires)
             return 0
         end)
         git.git_tree_walk(tree, GIT_TREEWALK_PRE, walk_cb, nil)
-        git.tree_free(tree)
-        git.object_free(obj_ptr[0])
+        git.git_tree_free(tree)
+        git.git_object_free(obj_ptr[0])
     end
     git.git_repository_free(repo)
 end
